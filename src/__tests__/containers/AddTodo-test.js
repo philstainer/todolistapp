@@ -1,19 +1,26 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import AddTodo from '../../containers/AddTodo';
+import { UnConnectedAddTodo } from '../../containers/AddTodo';
 import { findByTestAttr } from '../../../helpers/testUtils';
 
-const setup = () => {
-  const wrapper = shallow(<AddTodo />);
+const setup = (props = {}) => {
+  const wrapper = shallow(<UnConnectedAddTodo {...props} />);
   return wrapper;
 };
 
 describe('AddTodo', () => {
   let wrapper;
+  let addTodoMock;
 
   beforeEach(() => {
-    wrapper = setup();
+    addTodoMock = jest.fn();
+
+    const props = {
+      addTodo: addTodoMock,
+    };
+
+    wrapper = setup(props);
   });
 
   it('should render without error', () => {
@@ -38,7 +45,41 @@ describe('AddTodo', () => {
     expect(wrapper.instance().state.newTodo).toBe('My first todo');
   });
 
-  it('should call `addTodo` with input value and next todo id');
+  it('should call formSubmit on submit', () => {
+    const formSubmitMock = jest.fn();
 
-  it('should clear input on submit');
+    wrapper.find('form').simulate('submit', { preventDefault: formSubmitMock });
+
+    expect(formSubmitMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call `addTodo` with input value on submit', () => {
+    const input = findByTestAttr(wrapper, 'input-box');
+    input.simulate('change', { target: { value: 'My first todo' } });
+
+    expect(wrapper.instance().state.newTodo).toBe('My first todo');
+
+    wrapper.find('form').simulate('submit', { preventDefault: () => { } });
+
+    expect(addTodoMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('should not call `addTodo` with input value on submit', () => {
+    wrapper.find('form').simulate('submit', { preventDefault: () => { } });
+
+    expect(addTodoMock).toHaveBeenCalledTimes(0);
+  });
+
+  it('should clear input on submit', () => {
+    const input = findByTestAttr(wrapper, 'input-box');
+    input.simulate('change', { target: { value: 'My first todo' } });
+
+    expect(wrapper.instance().state.newTodo).toBe('My first todo');
+
+    const formSubmitMock = jest.fn();
+    wrapper.find('form').simulate('submit', { preventDefault: formSubmitMock });
+
+    expect(formSubmitMock).toHaveBeenCalledTimes(1);
+    expect(wrapper.instance().state.newTodo).toBe('');
+  });
 });

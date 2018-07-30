@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-class AddTodo extends Component {
+import { addTodo } from '../actions';
+
+export class UnConnectedAddTodo extends Component {
   static propTypes = {
   }
 
@@ -15,6 +18,12 @@ class AddTodo extends Component {
 
   formSubmit = (e) => {
     e.preventDefault();
+    const { newTodo } = this.state;
+
+    if (newTodo !== '') {
+      this.props.addTodo(newTodo);
+      this.setState({ newTodo: '' });
+    }
   }
 
   render() {
@@ -33,4 +42,4 @@ class AddTodo extends Component {
   }
 }
 
-export default AddTodo;
+export default connect(null, { addTodo })(UnConnectedAddTodo);
