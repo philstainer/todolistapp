@@ -64,8 +64,8 @@ describe('AddTodo', () => {
     expect(addTodoMock).toHaveBeenCalledTimes(1);
   });
 
-  it('should not call `addTodo` with input value on submit', () => {
-    wrapper.find('form').simulate('submit', { preventDefault: () => { } });
+  it('should not call `addTodo` with no value on submit', () => {
+    wrapper.find('form').simulate('submit', { preventDefault() { } });
 
     expect(addTodoMock).toHaveBeenCalledTimes(0);
   });
@@ -76,10 +76,8 @@ describe('AddTodo', () => {
 
     expect(wrapper.instance().state.newTodo).toBe('My first todo');
 
-    const formSubmitMock = jest.fn();
-    wrapper.find('form').simulate('submit', { preventDefault: formSubmitMock });
+    wrapper.find('form').simulate('submit', { preventDefault() { } });
 
-    expect(formSubmitMock).toHaveBeenCalledTimes(1);
     expect(wrapper.instance().state.newTodo).toBe('');
   });
 });
