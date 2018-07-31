@@ -1,3 +1,5 @@
+let nextTodoId = 0;
+
 const ACTION_TYPES = {
   ADD_TODO: 'ADD_TODO',
   TOGGLE_TODO: 'TOGGLE_TODO',
@@ -12,9 +14,9 @@ export const VisibilityFilters = {
   SHOW_INCOMPLETE: 'SHOW_INCOMPLETE',
 };
 
-export const addTodo = (text, id) => ({
+export const addTodo = text => ({
   type: ACTION_TYPES.ADD_TODO,
-  id,
+  id: nextTodoId++,
   text,
 });
 

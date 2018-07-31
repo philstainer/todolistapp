@@ -4,10 +4,10 @@ import ACTION_TYPES, {
 
 describe('actions', () => {
   it('addTodo should create ADD_TODO action', () => {
-    const addTodoAction = addTodo('New Todo', 1);
+    const addTodoAction = addTodo('New Todo');
     const expectedAction = {
       type: ACTION_TYPES.ADD_TODO,
-      id: 1,
+      id: 0,
       text: 'New Todo',
     };
 
