@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { toggleTodo } from '../actions';
+
 export class UnConnectedTodoList extends Component {
   static propTypes = {
     todos: PropTypes.arrayOf(
@@ -11,6 +13,7 @@ export class UnConnectedTodoList extends Component {
         id: PropTypes.number.isRequired,
       }).isRequired,
     ).isRequired,
+    toggleTodo: PropTypes.func.isRequired,
   }
 
   render() {
@@ -41,4 +44,4 @@ const mapStateToProps = ({ todos }) => ({
   todos,
 });
 
-export default connect(mapStateToProps)(UnConnectedTodoList);
+export default connect(mapStateToProps, { toggleTodo })(UnConnectedTodoList);

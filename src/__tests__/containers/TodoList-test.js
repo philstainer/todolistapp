@@ -8,6 +8,7 @@ const defaultProps = {
   todos: [
     { text: 'First todo', completed: false, id: 0 },
   ],
+  toggleTodo: () => { },
 };
 
 const setup = (props = {}) => {
@@ -62,12 +63,17 @@ describe('redux properties', () => {
   let wrapper;
 
   beforeEach(() => {
-    const store = storeFactory(defaultProps);
+    const store = storeFactory({ todos: defaultProps.todos });
     wrapper = shallow(<TodoList store={store} />).dive();
   });
 
   it('should have access to `todos` state', () => {
     const todosProp = wrapper.instance().props.todos;
     expect(todosProp).toBe(defaultProps.todos);
+  });
+
+  it('should have `toggleTodo` action creator on props', () => {
+    const toggleTodoProp = wrapper.instance().props.toggleTodo;
+    expect(toggleTodoProp).toBeInstanceOf(Function);
   });
 });
