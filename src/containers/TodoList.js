@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { toggleTodo } from '../actions';
 
-export class UnConnectedTodoList extends Component {
+export class UnConnectedTodoList extends React.PureComponent {
   static propTypes = {
     todos: PropTypes.arrayOf(
       PropTypes.shape({
@@ -28,7 +28,7 @@ export class UnConnectedTodoList extends Component {
                 {
                   todos.map(todo => (
                     <li data-test="todo" key={todo.id} onClick={() => this.props.toggleTodo(todo.id)} style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
-                      {todo}
+                      {todo.text}
                     </li>
                   ))
                 }
