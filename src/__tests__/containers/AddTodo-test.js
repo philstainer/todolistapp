@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { UnConnectedAddTodo } from '../../containers/AddTodo';
-import { findByTestAttr } from '../../../helpers/testUtils';
+import { findByTestAttr, checkProps } from '../../../helpers/testUtils';
 
 const setup = (props = {}) => {
   const wrapper = shallow(<UnConnectedAddTodo {...props} />);
@@ -26,6 +26,10 @@ describe('AddTodo', () => {
   it('should render without error', () => {
     const component = findByTestAttr(wrapper, 'component-addtodo');
     expect(component.length).toBe(1);
+  });
+
+  it('should not throw warning with expected props', () => {
+    checkProps(UnConnectedAddTodo, { addTodo: () => { } });
   });
 
   it('should render the input box', () => {

@@ -6,6 +6,7 @@ import { addTodo } from '../actions';
 
 export class UnConnectedAddTodo extends Component {
   static propTypes = {
+    addTodo: PropTypes.func.isRequired,
   }
 
   state = {
