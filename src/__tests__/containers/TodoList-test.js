@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import TodoList from '../../containers/TodoList';
-import { findByTestAttr } from '../../../helpers/testUtils';
+import { findByTestAttr, checkProps } from '../../../helpers/testUtils';
 
 const defaultProps = {
   todos: [
@@ -21,6 +21,11 @@ it('should render without error', () => {
   const component = findByTestAttr(wrapper, 'component-todolist');
   expect(component.length).toBe(1);
 });
+
+it('should not throw warning with expected props', () => {
+  checkProps(TodoList, defaultProps);
+});
+
 
 describe('if there are no todos', () => {
   let wrapper;
