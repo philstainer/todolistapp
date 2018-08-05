@@ -27,7 +27,7 @@ export class UnConnectedTodoList extends Component {
               <ul>
                 {
                   todos.map(todo => (
-                    <li data-test="todo" key={todo.id} onClick={() => this.props.toggleTodo(todo.id)}>
+                    <li data-test="todo" key={todo.id} onClick={() => this.props.toggleTodo(todo.id)} style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
                       {todo}
                     </li>
                   ))

@@ -64,6 +64,18 @@ describe('if there are todos', () => {
     expect(component.length).toBe(3);
   });
 
+  it('should render todo with line-through if completed true', () => {
+    const component = findByTestAttr(wrapper, 'todo');
+    const todoStyles = component.at(1).props().style;
+    expect(todoStyles.textDecoration).toEqual('line-through');
+  });
+
+  it('should render todo with no line-through if completed false', () => {
+    const component = findByTestAttr(wrapper, 'todo');
+    const todoStyles = component.at(0).props().style;
+    expect(todoStyles.textDecoration).toEqual('none');
+  });
+
   it('should call `toggleTodo` on todo click', () => {
     const component = findByTestAttr(wrapper, 'todo');
 
