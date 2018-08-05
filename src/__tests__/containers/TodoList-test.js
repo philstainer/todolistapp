@@ -42,20 +42,34 @@ describe('if there are no todos', () => {
 
 describe('if there are todos', () => {
   let wrapper;
-
-  const todos = [
-    { text: 'First todo', completed: false, id: 0 },
-    { text: 'Second todo', completed: true, id: 1 },
-    { text: 'Third todo', completed: false, id: 2 },
-  ];
+  let toggleTodoMock;
 
   beforeEach(() => {
-    wrapper = setup({ todos });
+    toggleTodoMock = jest.fn();
+
+    const props = {
+      todos: [
+        { text: 'First todo', completed: false, id: 0 },
+        { text: 'Second todo', completed: true, id: 1 },
+        { text: 'Third todo', completed: false, id: 2 },
+      ],
+      toggleTodo: toggleTodoMock,
+    };
+
+    wrapper = setup(props);
   });
 
   it('should render todos', () => {
     const component = findByTestAttr(wrapper, 'todo');
     expect(component.length).toBe(3);
+  });
+
+  it('should call `toggleTodo` on todo click', () => {
+    const component = findByTestAttr(wrapper, 'todo');
+
+    component.first().simulate('click');
+
+    expect(toggleTodoMock.mock.calls.length).toBe(1);
   });
 });
 
