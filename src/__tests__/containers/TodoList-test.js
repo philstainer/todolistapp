@@ -21,3 +21,35 @@ it('should render without error', () => {
   const component = findByTestAttr(wrapper, 'component-todolist');
   expect(component.length).toBe(1);
 });
+
+describe('if there are no todos', () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = setup({ todos: [] });
+  });
+
+  it('should render no todos', () => {
+    const component = findByTestAttr(wrapper, 'todo');
+    expect(component.length).toBe(0);
+  });
+});
+
+describe('if there are todos', () => {
+  let wrapper;
+
+  const todos = [
+    { text: 'First todo', completed: false, id: 0 },
+    { text: 'Second todo', completed: true, id: 1 },
+    { text: 'Third todo', completed: false, id: 2 },
+  ];
+
+  beforeEach(() => {
+    wrapper = setup({ todos });
+  });
+
+  it('should render todos', () => {
+    const component = findByTestAttr(wrapper, 'todo');
+    expect(component.length).toBe(3);
+  });
+});
