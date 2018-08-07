@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { toggleTodo } from '../actions';
+import { toggleTodo, VisibilityFilters } from '../actions';
 
 export class UnConnectedTodoList extends React.PureComponent {
   static propTypes = {
@@ -40,8 +40,21 @@ export class UnConnectedTodoList extends React.PureComponent {
   }
 }
 
-const mapStateToProps = ({ todos }) => ({
-  todos,
+export const filterVisibleTodos = (todos, filter) => {
+  switch (filter) {
+    case VisibilityFilters.SHOW_ALL:
+      return todos;
+    case VisibilityFilters.SHOW_COMPLETED:
+      return todos.filter(t => t.completed);
+    case VisibilityFilters.SHOW_ACTIVE:
+      return todos.filter(t => !t.completed);
+    default:
+      throw new Error(`Unknown filter: ${filter}`);
+  }
+};
+
+const mapStateToProps = ({ todos, visibilityFilter }) => ({
+  todos: filterVisibleTodos(todos, visibilityFilter),
 });
 
 export default connect(mapStateToProps, { toggleTodo })(UnConnectedTodoList);

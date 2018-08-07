@@ -1,8 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import TodoList, { UnConnectedTodoList } from '../../containers/TodoList';
+import TodoList, { UnConnectedTodoList, filterVisibleTodos } from '../../containers/TodoList';
 import { findByTestAttr, checkProps, storeFactory } from '../../../helpers/testUtils';
+import { VisibilityFilters } from '../../actions';
 
 const defaultProps = {
   todos: [
@@ -82,6 +83,29 @@ describe('if there are todos', () => {
     component.first().simulate('click');
 
     expect(toggleTodoMock.mock.calls.length).toBe(1);
+  });
+});
+
+describe('`filterVisibleTodos` should filter todos correctly', () => {
+  const todos = [
+    { text: 'First todo', completed: false, id: 0 },
+    { text: 'Second todo', completed: true, id: 1 },
+    { text: 'Third todo', completed: false, id: 2 },
+  ];
+
+  it('should filter `VisibilityFilters.SHOW_ALL` correctly', () => {
+    const filteredTodos = filterVisibleTodos(todos, VisibilityFilters.SHOW_ALL);
+    expect(filteredTodos.length).toBe(3);
+  });
+
+  it('should filter `VisibilityFilters.SHOW_ACTIVE` correctly', () => {
+    const filteredTodos = filterVisibleTodos(todos, VisibilityFilters.SHOW_ACTIVE);
+    expect(filteredTodos.length).toBe(2);
+  });
+
+  it('should filter `VisibilityFilters.SHOW_COMPLETED` correctly', () => {
+    const filteredTodos = filterVisibleTodos(todos, VisibilityFilters.SHOW_COMPLETED);
+    expect(filteredTodos.length).toBe(1);
   });
 });
 
