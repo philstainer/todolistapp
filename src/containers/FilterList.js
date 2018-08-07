@@ -18,15 +18,15 @@ export class UnConnectedFilterList extends React.PureComponent {
           Show:
         </span>
 
-        <button data-test="filter-button" disabled={visibilityFilter === VisibilityFilters.SHOW_ALL} onClick={() => this.props.setVisibilityFilter(visibilityFilter.SHOW_ALL)}>
+        <button data-test="filter-button" disabled={visibilityFilter === VisibilityFilters.SHOW_ALL} onClick={() => this.props.setVisibilityFilter(VisibilityFilters.SHOW_ALL)}>
           All
         </button>
 
-        <button data-test="filter-button" disabled={visibilityFilter === VisibilityFilters.SHOW_ACTIVE} onClick={() => this.props.setVisibilityFilter(visibilityFilter.SHOW_ACTIVE)}>
+        <button data-test="filter-button" disabled={visibilityFilter === VisibilityFilters.SHOW_ACTIVE} onClick={() => this.props.setVisibilityFilter(VisibilityFilters.SHOW_ACTIVE)}>
           Active
         </button>
 
-        <button data-test="filter-button" disabled={visibilityFilter === VisibilityFilters.SHOW_COMPLETED} onClick={() => this.props.setVisibilityFilter(visibilityFilter.SHOW_COMPLETED)}>
+        <button data-test="filter-button" disabled={visibilityFilter === VisibilityFilters.SHOW_COMPLETED} onClick={() => this.props.setVisibilityFilter(VisibilityFilters.SHOW_COMPLETED)}>
           Completed
         </button>
       </div>

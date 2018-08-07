@@ -2,6 +2,8 @@ import ACTION_TYPES, {
   addTodo, toggleTodo, setVisibilityFilter, VisibilityFilters,
 } from '../../actions';
 
+import { storeFactory } from '../../../helpers/testUtils';
+
 describe('actions', () => {
   it('addTodo should create ADD_TODO action', () => {
     const addTodoAction = addTodo('New Todo');
@@ -24,13 +26,11 @@ describe('actions', () => {
     expect(toggleTodoAction).toEqual(expectedAction);
   });
 
-  it('setVisibilityFilter should create SET_VISIBILITY_FILTER action', () => {
-    const setVisibilityFilterAction = setVisibilityFilter(VisibilityFilters.SHOW_ALL);
-    const expectedAction = {
-      type: ACTION_TYPES.SET_VISIBILITY_FILTER,
-      filter: VisibilityFilters.SHOW_ALL,
-    };
+  it('setVisibilityFilter should create SET_VISIBILITY_FILTER action', async () => {
+    const store = storeFactory();
 
-    expect(setVisibilityFilterAction).toEqual(expectedAction);
+    await store.dispatch(setVisibilityFilter(VisibilityFilters.SHOW_ACTIVE));
+
+    expect(store.getState().visibilityFilter).toBe(VisibilityFilters.SHOW_ACTIVE);
   });
 });

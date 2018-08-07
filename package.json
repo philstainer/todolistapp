@@ -26,6 +26,7 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.9.1",
-    "jest-enzyme": "^6.0.2"
+    "jest-enzyme": "^6.0.2",
+    "redux-devtools-extension": "^2.13.5"
   }
 }
